@@ -15,13 +15,14 @@ app.get("/getemail", (req, res) => {
         var address = req.query.Address;
         var subject = req.query.subject;
         var message = req.query.message;
+        var location = req.query.location;
 
         res.send(`Your name is ${fname}<br>Your email id is ${email}<br>Your phone Number is ${phone}<br> Your Address is ${address}<br> Your Subject is ${subject}<br> Your message is ${message}`);
 
         MongoClient.connect(url, (err, db) => {
             if (err) throw err;
             var dbo = db.db("Customers");
-            var myobj = { "name": fname, "email": email, "phone": phone, "address": address, "subject": subject, "message": message};
+            var myobj = { "name": fname, "email": email, "phone": phone, "address": address, "subject": subject, "message": message, "location": location };
             dbo.collection("Message").insertOne(myobj, (err, res) => {
               if (err) throw err;
               console.log("1 document inserted");

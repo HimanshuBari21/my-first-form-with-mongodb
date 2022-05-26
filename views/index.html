@@ -54,6 +54,11 @@
     .contactus-heading {
       margin: auto;
     }
+
+    .invis{
+      display: none;
+    }
+
   </style>
 </head>
 
@@ -67,11 +72,25 @@
       <input class="inputs-contact" placeholder="Mobile no." type="tel" name="phone" id="phone" maxlength="10">
       <input class="inputs-contact" placeholder="Address (optional)" type="text" name="Address" id="Address">
       <br>
+      <input class="inputs-contact invis" type="text" name="location" id="location">
       <input class="inputs-contact" placeholder="Subject (optional)" type="text" name="subject" id="subject">
       <textarea class="inputs-contact" placeholder="Please describe your issue or message here Properly" name="message" id="message" cols="30" rows="10"></textarea>
       <input class="inputs-contact" type="submit" value="Show Data">
     </form>
   </div>
+  
+
+  <script>
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition((position) => {
+        document.querySelector('#location').value = `${position.coords.latitude}, ${position.coords.longitude}`;
+      });
+    }
+    else{
+      alert("Geolocation is not supported by this browser.");
+    }
+  </script>
+
 </body>
 
 </html>
